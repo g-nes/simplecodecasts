@@ -6,13 +6,13 @@ $(document).ready(function(){
 		$('input[type=submit]').prop('disabled', true);
 		var error = false;
 		var ccNum = $('#card_number').val(),
-		var cvcNum = $('#card_code').val(),
-		expMonth = $('#card_month').val(),
-		expYear = $('#card_year').val();
+			cvcNum = $('#card_code').val(),
+			expMonth = $('#card_month').val(),
+			expYear = $('#card_year').val();
 
 	if (!error){
 		// Get the Stripe token:
-		Stript.createToken({
+		Stripe.card.createToken({
 			number: ccNum,
 			cvc: cvcNum,
 			exp_month: expMonth,
@@ -30,10 +30,9 @@ $(document).ready(function(){
 		var token = response.id;
 
 		// Add the token to the form:
-		f.append ('<input type="hidden" name="user[stripe_card_token]" value="' + token + '"/>');
+		f.append('<input type="hidden" name="user[stripe_card_token]" value="' + token + '"/>');
 
 		//submtin the the form:
 		f.get(0).submit();
 	}
-
 });
